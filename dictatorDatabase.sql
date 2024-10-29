@@ -214,64 +214,72 @@ INSERT INTO dictators VALUES
 
 Here are some example queries I wrote to analyze the data:
 
-1. This query shows me who's still in power: */
+*/
 
-SELECT d.name, c.name as country, d.rule_start
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.rule_end IS NULL
-ORDER BY d.rule_start;
+-- 1. Shows dictators who are still in power:
 
-/*2. I wrote this to see dictators by region: */
-SELECT c.region, d.name, c.name as country, d.rule_start, d.rule_end
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-ORDER BY c.region, d.rule_start;
+SELECT dictators.name, countries.name as country, dictators.rule_start
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.rule_end IS NULL
+ORDER BY dictators.rule_start;
 
 
-/*3. This helped me find the long-ruling dictators: */
+-- 2. Shows dictators organized by regions:
 
-SELECT d.name, c.name as country, 
-       d.rule_start, d.rule_end
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.rule_end IS NOT NULL 
-AND (d.rule_end - d.rule_start) > 20
-ORDER BY (d.rule_end - d.rule_start) DESC;
+SELECT countries.region, dictators.name, countries.name as country, 
+       dictators.rule_start, dictators.rule_end
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+ORDER BY countries.region, dictators.rule_start;
 
-/*4. I used this to find dictators who ruled for less than 10 years: */
 
-SELECT d.name, c.name as country, 
-       d.rule_start, d.rule_end
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.rule_end IS NOT NULL
-AND (d.rule_end - d.rule_start) < 10
-ORDER BY (d.rule_end - d.rule_start) ASC;
+-- 3. Finds dictators who ruled more than 20 years:
 
-/*5. This query helped me find dictators who died in power: */
+SELECT dictators.name, countries.name as country, 
+       dictators.rule_start, dictators.rule_end
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.rule_end IS NOT NULL 
+AND (dictators.rule_end - dictators.rule_start) > 20
+ORDER BY (dictators.rule_end - dictators.rule_start) DESC;
 
-SELECT d.name, c.name as country, d.death_year
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.death_year IS NOT NULL
-AND d.rule_end IS NULL
-ORDER BY d.death_year;
 
-/*6. I used this to find dictators who came to power after 2000: */
+-- 4. Finds dictators who ruled less than 10 years:
 
-SELECT d.name, c.name as country, d.rule_start
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.rule_start > 2000
-ORDER BY d.rule_start;
+SELECT dictators.name, countries.name as country, 
+       dictators.rule_start, dictators.rule_end
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.rule_end IS NOT NULL
+AND (dictators.rule_end - dictators.rule_start) < 10
+ORDER BY (dictators.rule_end - dictators.rule_start) ASC;
 
-/*7. I used this to find dictators who ruled in the 21st century: */ 
-/*(I think the most important query)*/
 
-SELECT d.name, c.name as country, d.rule_start
-FROM dictators d
-JOIN countries c ON d.country_id = c.id
-WHERE d.rule_start >= 2000
-ORDER BY d.rule_start;
+-- 5. Shows dictators who died while in power:
+
+SELECT dictators.name, countries.name as country, dictators.death_year
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.death_year IS NOT NULL
+AND dictators.rule_end IS NULL
+ORDER BY dictators.death_year;
+
+
+-- 6. Shows dictators who came to power after year 2000:
+
+SELECT dictators.name, countries.name as country, dictators.rule_start
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.rule_start > 2000
+ORDER BY dictators.rule_start;
+
+
+-- 7. Shows dictators who ruled in the 21st century: which is very important for us to know
+
+SELECT dictators.name, countries.name as country, dictators.rule_start
+FROM dictators
+JOIN countries ON dictators.country_id = countries.id
+WHERE dictators.rule_start >= 2000
+ORDER BY dictators.rule_start;
 
