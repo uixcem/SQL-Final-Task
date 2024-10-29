@@ -1,6 +1,6 @@
 # My Historical Dictators Database Project
 
-This is my database project where I collected information about historical dictators. I got interested in this topic after seeing diktaattoriporssi.com, and I decided to create a SQL database to practice what I learned in our database course. Why did I choose this topic? Because I am also a victim of one of the dictators in my country, Recep Tayyip Erdoğan. I was imprisoned for 9 months when I was a law student, charged with participating in the July 15, 2016 coup attempt against their government (as a student??). That's why I think your website is very important to show dictators to the world, and it has a special meaning to me.
+This is my database project where I collected information about historical dictators. I got interested in this topic after seeing diktaattoriporssi.com, and I decided to create a database to practice what I learned in our database course. Why did I choose this topic? Because I am also a victim of one of the dictators in my country, Recep Tayyip Erdoğan. I was imprisoned for 9 months when I was a law student, charged with participating in the July 15, 2016 coup attempt against their government (as a student??). That's why I think your website is very important to show dictators to the world, and it has a special meaning to me.
 
 ## What I Did
 
@@ -28,9 +28,73 @@ If you want to try this yourself:
 - I included both historical and current rulers
 - I kept the structure simple to focus on what we learned in class, at least what I learned.
 
-This was a really interesting project for me to practice SQL. I learned a lot about different dictators and their countries. I hope you find it interesting too!
+This was a really interesting project for me to practice . I learned a lot about different dictators and their countries. I hope you find it interesting too!
 
 ## Sources
 
 - I used diktaattoriporssi.com as my main source for the data. This helped me create a comprehensive list of historical and current dictators.
 - I used a Claude.ai for the getting data from the website. I also used Claude.ai for things that I stuck on the project.
+
+# Installation and Setup Steps
+
+1. First, create the database:
+
+createdb DictatorDBv1
+
+2. Connect to the database:
+
+psql DictatorDBv1
+
+3. Create the tables by copying and pasting the CREATE TABLE statements:
+
+CREATE TABLE countries (
+id INT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+region VARCHAR(50)
+);
+
+CREATE TABLE dictators (
+id INT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+country_id INT,
+birth_year INT,
+death_year INT,
+rule_start INT,
+rule_end INT,
+FOREIGN KEY (country_id) REFERENCES countries(id)
+);
+
+4. Insert the data by copying and pasting the INSERT statements:
+
+INSERT INTO countries VALUES
+(1, 'Germany', 'Europe'),
+same to the others..
+
+5. Verify the data is loaded:
+
+-- Check countries table
+SELECT \* FROM countries;
+
+-- Check dictators table
+SELECT \* FROM dictators;
+
+-- Check total number of records
+SELECT COUNT(_) FROM countries;
+SELECT COUNT(_) FROM dictators;
+
+6. Basic psql commands you might need:
+
+\dt -- List all tables
+\d countries -- Show countries table structure
+\d dictators -- Show dictators table structure
+\q -- Quit psql
+\? -- Show all psql commands
+
+7. If you need to delete the database and start over:
+   bash
+
+# Quit psql first with \q then,
+
+dropdb DictatorDBv1
+
+# Note: Make sure Postgresql is installed on your system before running these commands.
