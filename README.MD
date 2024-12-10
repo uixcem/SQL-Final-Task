@@ -1,7 +1,6 @@
 # My Historical Dictators Database Project
 
-This is my database project where I collected information about historical dictators. I got interested in this topic after seeing diktaattoriporssi.com, and I decided to create a database to practice what I learned in our database course. Why did I choose this topic? Because I am also a victim of one of the dictators in my country, Recep Tayyip Erdoğan. I was imprisoned for 9 months when I was a law student, charged with participating in the July 15, 2016 coup attempt against their government (as a student??). That's why I think your website is very important to show dictators to the world, and it has a special meaning to me.
-
+This is my database project where I collected information about historical dictators. I got interested in this topic after seeing diktaattoriporssi.com, and I decided to create a database to practice what I learned in our database course.
 ## What I Did
 
 I created a database with two main tables:
@@ -33,7 +32,7 @@ This was a really interesting project for me to practice . I learned a lot about
 ## Sources
 
 - I used diktaattoriporssi.com as my main source for the data. This helped me create a comprehensive list of historical and current dictators.
-- I used a Claude.ai for the getting data from the website. I also used Claude.ai for things that I stuck on the project.
+
 
 # Installation and Setup Steps
 
